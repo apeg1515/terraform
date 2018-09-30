@@ -1,14 +1,16 @@
 
 # Configure the DigitalOcean Provider
 provider "digitalocean" {
-  token = "$DIGITALOCEAN_TOKEN"
+  token = "${var.DO_TOKEN}"
 }
 
- # Create a new Web Droplet in the nyc2 region
-resource "digitalocean_droplet" "web" {
-  image  = "ubuntu-14-04-x64"
-  name   = "web-1"
-  region = "nyc2"
-  size   = "512mb"
+resource "digitalocean_droplet" "kubernetes" {
+  ssh_keys           = "${var.SSH_KEY}"
+  image              = "ubuntu-16-04-x64"
+  region             = "nyc3"
+  size               = "s-1vcpu-1gb"
+  private_networking = true
+  ipv6               = true
+  name               = "kubernetes"
 }
 
